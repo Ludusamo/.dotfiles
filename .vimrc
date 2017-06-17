@@ -15,6 +15,11 @@ set colorcolumn=80
 
 colorscheme slate
 
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+
 " Leader mappings
 let mapleader = " "
 nnoremap <Leader>tn :tabnew<CR>
