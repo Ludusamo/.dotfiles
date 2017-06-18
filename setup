@@ -1,0 +1,44 @@
+#!/bin/bash
+
+function file_exists {
+	[ -e "$1" ] && return 0 || return 1
+}
+
+function copy_dotfile {
+	echo "Copying $1 to $2."
+	cp $1 $2
+}
+
+function handle_diff {
+	diff=`diff "$1" "$2"`
+	echo
+	echo "File $1 is different from $2 with diff:"
+	echo $diff
+	PS3="Do you want to overwrite these changes?"
+	select yn in "Yes" "No"; do
+		case $yn in
+			Yes )
+				copy_dotfile $1 $2
+				break
+				;;
+			No )
+				echo File not copied
+				break
+				;;
+		esac
+	done < /dev/tty
+}
+
+echo Setting up dotfiles...
+
+while read file dir; do
+	filepath=${HOME}/$dir/$file
+	if file_exists $filepath; then
+		if ! cmp -s "$file" "$filepath"; then
+			handle_diff $file $filepath
+		fi
+	else
+		copy_dotfile $file $filepath
+	fi
+done < file_locations
+
