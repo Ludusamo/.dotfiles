@@ -6,7 +6,7 @@ function file_exists {
 
 function copy_dotfile {
 	echo "Copying $1 to $2."
-	cp $1 $2
+	sudo cp $1 $2
 }
 
 function handle_diff {

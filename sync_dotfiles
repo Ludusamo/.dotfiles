@@ -1,0 +1,17 @@
+#!/bin/bash
+
+dotfile_repo="${HOME}/.dotfiles/.git"
+
+function up_to_date {
+	if [[ $(git --git-dir $1 log HEAD..origin/master --oneline) ]]
+	then
+		return 1
+	fi
+	return 0
+}
+
+if up_to_date $dotfile_repo; then
+	echo File up to date.
+else
+	echo File not up to date.
+fi
