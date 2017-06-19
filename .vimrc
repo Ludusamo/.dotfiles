@@ -1,8 +1,6 @@
 " Usual Configurations
 set nocompatible
 
-test
-
 syntax enable
 filetype plugin on
 
