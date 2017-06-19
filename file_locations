@@ -1,2 +1,3 @@
 .vimrc
 .tmux.conf
+sync_dotfiles ../../etc/cron.daily
