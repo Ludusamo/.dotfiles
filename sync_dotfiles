@@ -28,7 +28,7 @@ if [ "$pull_output" = "Already up-to-date." ]; then
 			sudo cp $filepath "$dotfile_dir/$file" 2>&1
 			git --git-dir $dotfile_repo --work-tree=$dotfile_dir add "$dotfile_dir/$file" > /dev/null
 		fi
-	done < file_locations
+	done < $dotfile_dir/file_locations
 	if [ $files_changed ]; then
 		git --git-dir $dotfile_repo --work-tree=$dotfile_dir commit -m "Automated Backup On: `date`" > /dev/null
 		git --git-dir $dotfile_repo --work-tree=$dotfile_dir push origin master > /dev/null 2>&1
@@ -37,7 +37,7 @@ else
 	while read file dir; do
 		filepath=${HOME}/$dir/$file
 		sudo cp $filepath "$dotfile_dir/$file"
-	done < file_locations
+	done < $dotfile_dir/file_locations
 fi
 
 git --git-dir $dotfile_repo --work-tree=$dotfile_dir checkout $cur_branch > /dev/null 2>&1
