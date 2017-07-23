@@ -23,6 +23,8 @@ nnoremap <c-l> <c-w>l
 " Leader mappings
 let mapleader = " "
 nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :w<CR>
 nnoremap <leader>l :set list!<CR>
 nnoremap <leader>zz m`:TrimSpaces<CR>``
 
