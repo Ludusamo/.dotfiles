@@ -72,6 +72,12 @@ Plug 'ervandew/supertab'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+Plug 'vim-scripts/Conque-GDB'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'freitass/todo.txt-vim'
+
 call plug#end()
 
 " Lets vim know it can display 256 colors
@@ -103,3 +109,6 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:UltiSnipsEditSplit="vertical"
+
+" Airline
+let g:airline_theme='atomic'
