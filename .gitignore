@@ -7,6 +7,10 @@
 # Session
 Session.vim
 
+# Folders
+bin
+obj
+
 # Temporary
 .netrwhist
 *~
