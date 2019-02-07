@@ -12,21 +12,65 @@ set nu
 set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 set colorcolumn=80
 
+" Disable
+inoremap hn <esc>
+inoremap <esc> <nop>
+
+" Colemak
+augroup colemak
+    " Normal
+    nnoremap n j
+    nnoremap i l
+    nnoremap e k
+    nnoremap k n
+    nnoremap l u
+    nnoremap u i
+    nnoremap j e
+    nnoremap U I
+
+    " Visual
+    vnoremap n j
+    vnoremap i l
+    vnoremap e k
+    vnoremap k n
+    vnoremap l u
+    vnoremap u i
+    vnoremap j e
+
+    " Operator Pending
+    onoremap n j
+    onoremap i l
+    onoremap e k
+    onoremap k n
+    onoremap l u
+    onoremap u i
+    onoremap j e
+augroup END
+
 " Special syntax highlighting
-autocmd BufNewFile,BufRead *.ino set syntax=c
+autocmd BufNewFile,BufRead *.ino syntax=c
+augroup autocommands
+    autocmd!
+    autocmd BufWritePre *.go :GoFmt
+augroup END
 
 nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
+nnoremap <c-n> <c-w>j
+nnoremap <c-e> <c-w>k
+nnoremap <c-i> <c-w>l
 
 " Leader mappings
-let mapleader = " "
-nnoremap <Leader>tn :tabnew<CR>
-nnoremap <leader>l :set list!<CR>
-nnoremap <leader>zz m`:TrimSpaces<CR>``
-nnoremap <leader>rr :so %<CR>
-nnoremap <silent> <leader>rt :! ctags -R .<CR>
+augroup colemak
+    let mapleader = " "
+    nnoremap <leader>tn :tabnew<CR>
+    nnoremap <leader>l :set list!<CR>
+    nnoremap <leader>zz m`:TrimSpaces<CR>``
+    nnoremap <silent> <leader>rr :so %<CR>
+    nnoremap <silent> <leader>rt :! ctags -R .<CR>
+    nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+    nnoremap <leader>oa :A<CR>
+    nnoremap <leader>w :w<CR>
+augroup END
 
 " Whitespace
 set list!
@@ -75,8 +119,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Conque-GDB'
 
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
 
 Plug 'freitass/todo.txt-vim'
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 

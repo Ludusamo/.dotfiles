@@ -1,10 +1,10 @@
 export PATH=$PATH:~/.vimpkg/bin
-export PATH=~/pebble-dev/pebble-sdk-4.2-linux64/bin:$PATH
-export PATH=$PATH:/home/brendan/Documents/Programming/google-app/google_appengine/
-export PATH=$PATH:/home/brendan/Documents/Programming/google-app/google_appengine/
-export PATH=$PATH:~/android-sdk-linux/tools
-export PATH=$PATH:/usr/lib/dart/bin/
 export PATH=$PATH:/home/brendan/Documents/Programming/emsdk_portable:/home/brendan/Documents/Programming/emsdk_portable/clang/fastcomp/build_master_64/bin:/home/brendan/Documents/Programming/emsdk_portable/node/4.1.1_64bit/bin:/home/brendan/Documents/Programming/emsdk_portable/emscripten/master
+export PATH=$PATH:/home/brendan/.npm-global/bin
+
+export GOPATH=$HOME/dev/go
+export GOBIN=$HOME/dev/go/bin
+export PATH=$PATH:$(go env GOPATH)/bin
 
  #~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -13,6 +13,8 @@ export PATH=$PATH:/home/brendan/Documents/Programming/emsdk_portable:/home/brend
 # If you have anything that's using the Debug Trap or PROMPT_COMMAND 
 # change it to use preexec or precmd
 # See also https://github.com/rcaloras/bash-preexec
+
+source ~/.git-completion.bash
 
 t() {
 	if [[ -e .tmux ]]; then
@@ -188,6 +190,3 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
