@@ -1,6 +1,7 @@
 export PATH=$PATH:~/.vimpkg/bin
 export PATH=$PATH:/home/brendan/Documents/Programming/emsdk_portable:/home/brendan/Documents/Programming/emsdk_portable/clang/fastcomp/build_master_64/bin:/home/brendan/Documents/Programming/emsdk_portable/node/4.1.1_64bit/bin:/home/brendan/Documents/Programming/emsdk_portable/emscripten/master
 export PATH=$PATH:/home/brendan/.npm-global/bin
+export PATH=$PATH:/usr/local/bin/binaryninja
 
 export GOPATH=$HOME/dev/go
 export GOBIN=$HOME/dev/go/bin
@@ -14,7 +15,9 @@ export PATH=$PATH:$(go env GOPATH)/bin
 # change it to use preexec or precmd
 # See also https://github.com/rcaloras/bash-preexec
 
+
 source ~/.git-completion.bash
+
 
 t() {
 	if [[ -e .tmux ]]; then
@@ -190,3 +193,6 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+cat ~/.cache/wal/sequences
+clear

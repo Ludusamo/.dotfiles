@@ -28,6 +28,14 @@ augroup colemak
     nnoremap j e
     nnoremap U I
 
+    nnoremap <S-n> <S-j>
+    nnoremap <S-i> <S-l>
+    nnoremap <S-e> <S-k>
+    nnoremap <S-k> <S-n>
+    nnoremap <S-l> <S-u>
+    nnoremap <S-u> <S-i>
+    nnoremap <S-j> <S-e>
+
     " Visual
     vnoremap n j
     vnoremap i l
@@ -47,7 +55,12 @@ augroup colemak
     onoremap j e
 augroup END
 
-" Special syntax highlighting
+" Folding
+set foldmethod=indent
+set foldlevelstart=99
+
+" Special syntax highlightine
+au BufRead,BufNewFile *.screeps.js set syntax=screeps
 autocmd BufNewFile,BufRead *.ino syntax=c
 augroup autocommands
     autocmd!
