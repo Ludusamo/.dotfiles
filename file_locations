@@ -1,4 +1,6 @@
 .vimrc
 .tmux.conf
 .bashrc
+.gitignore.global
+.zshrc
 sync_dotfiles ../../etc/cron.daily

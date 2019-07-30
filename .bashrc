@@ -1,7 +1,5 @@
 export PATH=$PATH:~/.vimpkg/bin
-export PATH=$PATH:/home/brendan/Documents/Programming/emsdk_portable:/home/brendan/Documents/Programming/emsdk_portable/clang/fastcomp/build_master_64/bin:/home/brendan/Documents/Programming/emsdk_portable/node/4.1.1_64bit/bin:/home/brendan/Documents/Programming/emsdk_portable/emscripten/master
-export PATH=$PATH:/home/brendan/.npm-global/bin
-export PATH=$PATH:/usr/local/bin/binaryninja
+export PATH=$PATH:/usr/bin
 
 export GOPATH=$HOME/dev/go
 export GOBIN=$HOME/dev/go/bin
@@ -11,7 +9,7 @@ export PATH=$PATH:$(go env GOPATH)/bin
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 # We use preexec and precmd hook functions for Bash
-# If you have anything that's using the Debug Trap or PROMPT_COMMAND 
+# If you have anything that's using the Debug Trap or PROMPT_COMMAND
 # change it to use preexec or precmd
 # See also https://github.com/rcaloras/bash-preexec
 
@@ -135,14 +133,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# If this is an xterm set more declarative titles 
+# If this is an xterm set more declarative titles
 # "dir: last_cmd" and "actual_cmd" during execution
 # If you want to exclude a cmd from being printed see line 156
 case "$TERM" in
 xterm*|rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\$(print_title)\a\]$PS1"
     __el_LAST_EXECUTED_COMMAND=""
-    print_title () 
+    print_title ()
     {
         __el_FIRSTPART=""
         __el_SECONDPART=""
@@ -165,7 +163,7 @@ xterm*|rxvt*)
             __el_SECONDPART="${__el_SECONDPART%% *}"
         else
             __el_SECONDPART="${__el_LAST_EXECUTED_COMMAND%% *}"
-        fi 
+        fi
         printf "%s: %s" "$__el_FIRSTPART" "$__el_SECONDPART"
     }
     put_title()
@@ -173,13 +171,13 @@ xterm*|rxvt*)
         __el_LAST_EXECUTED_COMMAND="${BASH_COMMAND}"
         printf "\033]0;%s\007" "$1"
     }
-    
+
     # Show the currently running command in the terminal title:
     # http://www.davidpashley.com/articles/xterm-titles-with-bash.html
     update_tab_command()
     {
         # catch blacklisted commands and nested escapes
-        case "$BASH_COMMAND" in 
+        case "$BASH_COMMAND" in
             *\033]0*|update_*|echo*|printf*|clear*|cd*)
             __el_LAST_EXECUTED_COMMAND=""
                 ;;
@@ -196,3 +194,6 @@ esac
 
 cat ~/.cache/wal/sequences
 clear
+if [ -t 1 ]; then
+    exec zsh
+fi
