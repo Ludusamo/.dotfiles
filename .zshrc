@@ -25,6 +25,11 @@ export ZSH="/home/bhorng/.oh-my-zsh"
 
 ZSH_THEME="minimal"
 
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# Alias
+alias vim="nvim"
+
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
 
@@ -76,3 +81,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+### Added by Zplugin's installer
+source '/home/bhorng/.zplugin/bin/zplugin.zsh'
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+zplugin ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh"
+zplugin load trapd00r/LS_COLORS
+### End of Zplugin's installer chunk

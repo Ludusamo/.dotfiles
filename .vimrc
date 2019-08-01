@@ -12,6 +12,15 @@ set nu
 set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 set colorcolumn=80
 
+colorscheme smyck
+
+" Line highlight
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
+
 " Disable
 inoremap hn <esc>
 inoremap <esc> <nop>
@@ -59,13 +68,16 @@ augroup END
 set foldmethod=indent
 set foldlevelstart=99
 
-" Special syntax highlightine
+" Special syntax highlighting
 au BufRead,BufNewFile *.screeps.js set syntax=screeps
 autocmd BufNewFile,BufRead *.ino syntax=c
 augroup autocommands
     autocmd!
     autocmd BufWritePre *.go :GoFmt
 augroup END
+
+"TypeScript
+autocmd BufWritePost *.ts,*.tsx call tslint#run('a', win_getid())
 
 nnoremap <c-h> <c-w>h
 nnoremap <c-n> <c-w>j
@@ -89,6 +101,7 @@ augroup END
 set list!
 set listchars=tab:▸\ ,trail:•
 
+augroup TrailingWhitespace
 function ShowSpaces(...)
     let @/='\v(\s+$)|( +\ze\t)'
     let oldhlsearch=&hlsearch
@@ -108,13 +121,14 @@ endfunction
 
 command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+augroup END
 
 " Vim Plug
 call plug#begin()
 
 Plug 'elmcast/elm-vim'
-Plug 'vim-syntastic/syntastic'
 Plug 'Valloric/YouCompleteMe'
+Plug 'dense-analysis/ale'
 
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -138,16 +152,14 @@ Plug 'freitass/todo.txt-vim'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+Plug 'leafgarland/typescript-vim'
+
+Plug 'kien/ctrlp.vim'
+
 call plug#end()
 
 " Lets vim know it can display 256 colors
 set t_Co=256
-
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-
-let g:elm_syntastic_show_warnings = 1
 
 " YouCompleteMe
 let g:ycm_semantic_triggers = {
