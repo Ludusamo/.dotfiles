@@ -35,6 +35,7 @@ if [ "$pull_output" = "Already up to date." ]; then
 			git --git-dir $dotfile_repo --work-tree=$dotfile_dir add "$dotfile_dir/$file" > /dev/null
 		fi
 	done < $dotfile_dir/file_locations
+	echo "Backing up files..."
 	if [ $files_changed ]; then
 		git --git-dir $dotfile_repo --work-tree=$dotfile_dir commit -m "Automated Backup On: `date`" > /dev/null
 		git --git-dir $dotfile_repo --work-tree=$dotfile_dir push origin master > /dev/null 2>&1
