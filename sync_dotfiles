@@ -32,8 +32,8 @@ if [ "$pull_output" = "Already up to date." ]; then
 		if ! cmp -s "$dotfile_dir/$file" "$filepath"; then
 			files_changed=0
 			sudo cp $filepath "$dotfile_dir/$file" 2> /dev/null
-			git --git-dir $dotfile_repo --work-tree=$dotfile_dir add "$dotfile_dir/$file" > /dev/null
 		fi
+	git --git-dir $dotfile_repo --work-tree=$dotfile_dir add -A > /dev/null
 	done < $dotfile_dir/file_locations
 	echo "Backing up files..."
 	if [ $files_changed ]; then
@@ -49,4 +49,4 @@ else
 fi
 
 git --git-dir $dotfile_repo --work-tree=$dotfile_dir checkout $cur_branch > /dev/null 2>&1
-git --git-dir $dotfile_repo stash pop > /dev/null
+git --git-dir $dotfile_repo stash pop > /dev/null 2>&1
