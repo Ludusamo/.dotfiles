@@ -29,7 +29,6 @@ if [ "$pull_output" = "Already up to date." ]; then
 	while read file dir; do
 		filepath=${HOME}/$dir/$file
 		files_changed=1
-		echo "$file"
 		if ! cmp -s "$dotfile_dir/$file" "$filepath"; then
 			files_changed=0
 			sudo cp $filepath "$dotfile_dir/$file" 2>&1
