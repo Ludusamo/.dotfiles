@@ -33,12 +33,12 @@ if [ "$pull_output" = "Already up to date." ]; then
 		if ! cmp -s "$dotfile_dir/$file" "$filepath"; then
 			files_changed=0
 			sudo cp $filepath "$dotfile_dir/$file" 2>&1
-			git --git-dir $dotfile_repo --work-tree=$dotfile_dir add "$dotfile_dir/$file" #> /dev/null
+			git --git-dir $dotfile_repo --work-tree=$dotfile_dir add "$dotfile_dir/$file" > /dev/null
 		fi
 	done < $dotfile_dir/file_locations
 	if [ $files_changed ]; then
-		git --git-dir $dotfile_repo --work-tree=$dotfile_dir commit -m "Automated Backup On: `date`" #> /dev/null
-		git --git-dir $dotfile_repo --work-tree=$dotfile_dir push origin master #> /dev/null 2>&1
+		git --git-dir $dotfile_repo --work-tree=$dotfile_dir commit -m "Automated Backup On: `date`" > /dev/null
+		git --git-dir $dotfile_repo --work-tree=$dotfile_dir push origin master > /dev/null 2>&1
 	fi
 else
 	while read file dir; do
@@ -47,5 +47,5 @@ else
 	done < $dotfile_dir/file_locations
 fi
 
-git --git-dir $dotfile_repo --work-tree=$dotfile_dir checkout $cur_branch #> /dev/null 2>&1
-git --git-dir $dotfile_repo stash pop #> /dev/null
+git --git-dir $dotfile_repo --work-tree=$dotfile_dir checkout $cur_branch > /dev/null 2>&1
+git --git-dir $dotfile_repo stash pop > /dev/null
