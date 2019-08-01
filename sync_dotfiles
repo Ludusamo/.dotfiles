@@ -31,7 +31,7 @@ if [ "$pull_output" = "Already up to date." ]; then
 		files_changed=1
 		if ! cmp -s "$dotfile_dir/$file" "$filepath"; then
 			files_changed=0
-			sudo cp $filepath "$dotfile_dir/$file" 2>&1
+			sudo cp $filepath "$dotfile_dir/$file" 2> /dev/null
 			git --git-dir $dotfile_repo --work-tree=$dotfile_dir add "$dotfile_dir/$file" > /dev/null
 		fi
 	done < $dotfile_dir/file_locations
@@ -40,6 +40,7 @@ if [ "$pull_output" = "Already up to date." ]; then
 		git --git-dir $dotfile_repo --work-tree=$dotfile_dir push origin master > /dev/null 2>&1
 	fi
 else
+	echo "Out of date: Copying updated files..."
 	while read file dir; do
 		filepath=${HOME}/$dir/$file
 		sudo cp "$dotfile_dir/$file" $filepath
