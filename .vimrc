@@ -4,7 +4,9 @@ set nocompatible
 syntax enable
 filetype plugin on
 
+" Fuzzy file searching with :find
 set path+=**
+set wildignore+=**/node_modules/**
 set wildmenu
 
 set relativenumber
@@ -24,6 +26,12 @@ augroup END
 " Disable
 inoremap hn <esc>
 inoremap <esc> <nop>
+
+" Easier pane movement
+nnoremap <c-h> <c-w>h
+nnoremap <c-n> <c-w>j
+nnoremap <c-e> <c-w>k
+nnoremap <c-i> <c-w>l
 
 " Colemak
 augroup colemak
@@ -79,11 +87,6 @@ augroup END
 "TypeScript
 autocmd BufWritePost *.ts,*.tsx call tslint#run('a', win_getid())
 
-nnoremap <c-h> <c-w>h
-nnoremap <c-n> <c-w>j
-nnoremap <c-e> <c-w>k
-nnoremap <c-i> <c-w>l
-
 " Leader mappings
 augroup colemak
     let mapleader = " "
@@ -101,27 +104,25 @@ augroup END
 set list!
 set listchars=tab:▸\ ,trail:•
 
-augroup TrailingWhitespace
-    function ShowSpaces(...)
-        let @/='\v(\s+$)|( +\ze\t)'
-        let oldhlsearch=&hlsearch
-        if !a:0
-            let &hlsearch=!&hlsearch
-        else
-            let &hlsearch=a:1
-        end
-        return oldhlsearch
-    endfunction
+function! ShowSpaces(...)
+    let @/='\v(\s+$)|( +\ze\t)'
+    let oldhlsearch=&hlsearch
+    if !a:0
+        let &hlsearch=!&hlsearch
+    else
+        let &hlsearch=a:1
+    end
+    return oldhlsearch
+endfunction
 
-    function TrimSpaces() range
-        let oldhlsearch=ShowSpaces(1)
-        execute a:firstline.",".a:lastline."substitute ///gec"
-        let &hlsearch=oldhlsearch
-    endfunction
+function! TrimSpaces() range
+    let oldhlsearch=ShowSpaces(1)
+    execute a:firstline.",".a:lastline."substitute ///gec"
+    let &hlsearch=oldhlsearch
+endfunction
 
-    command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
-    command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
-augroup END
+command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 
 " Vim Plug
 call plug#begin()
@@ -140,6 +141,7 @@ Plug 'honza/vim-snippets'
 
 Plug 'ervandew/supertab'
 
+" Status Line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -150,11 +152,13 @@ Plug 'tpope/vim-projectionist'
 
 Plug 'freitass/todo.txt-vim'
 
+" Languages
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 Plug 'leafgarland/typescript-vim'
 
-Plug 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim' " Fuzzy file finding
+
+Plug 'segeljakt/vim-silicon' " Cool screenshots
 
 call plug#end()
 

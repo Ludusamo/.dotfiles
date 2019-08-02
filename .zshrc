@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+#
 t() {
 	if [[ -e .tmux ]]; then
 		./.tmux
@@ -40,16 +40,20 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    npm
-    yarn
-    pip
-    thefuck
+	git
+	npm
+	yarn
+	pip
+	thefuck
 )
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.profile
 
 # User configuration
+
+# Unbind C-I
+# bindkey -r "^I"
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
