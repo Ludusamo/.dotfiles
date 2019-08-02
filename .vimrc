@@ -14,8 +14,6 @@ set nu
 set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 set colorcolumn=80
 
-colorscheme smyck
-
 " Line highlight
 augroup CursorLine
     au!
@@ -52,6 +50,9 @@ augroup colemak
     nnoremap <S-l> <S-u>
     nnoremap <S-u> <S-i>
     nnoremap <S-j> <S-e>
+
+    nnoremap <c-l> <c-u>
+    nnoremap <c-u> <c-i>
 
     " Visual
     vnoremap n j
@@ -127,43 +128,45 @@ command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 " Vim Plug
 call plug#begin()
 
-Plug 'elmcast/elm-vim'
-Plug 'Valloric/YouCompleteMe'
-Plug 'dense-analysis/ale'
+Plug 'Valloric/YouCompleteMe' " Code completion
 
-Plug 'godlygeek/tabular'
+Plug 'dense-analysis/ale' " Linting
+
+Plug 'godlygeek/tabular' " Takes things and nicely spaces them out
 Plug 'plasticboy/vim-markdown'
 
 Plug 'tpope/vim-surround'
 
+" Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-Plug 'ervandew/supertab'
+Plug 'ervandew/supertab' " Allows for usage of tab in insertion mode
 
 " Status Line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'vim-scripts/Conque-GDB'
-
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-projectionist'
-
-Plug 'freitass/todo.txt-vim'
+Plug 'tpope/vim-fugitive' " Git Integration
+Plug 'tpope/vim-projectionist' " Project Configuration
 
 " Languages
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
+Plug 'elmcast/elm-vim'
 
 Plug 'kien/ctrlp.vim' " Fuzzy file finding
 
 Plug 'segeljakt/vim-silicon' " Cool screenshots
 
+Plug 'phanviet/vim-monokai-pro' " Awesome Colorscheme
+
 call plug#end()
 
 " Lets vim know it can display 256 colors
+set termguicolors
 set t_Co=256
+colorscheme monokai_pro
 
 " YouCompleteMe
 let g:ycm_semantic_triggers = {
