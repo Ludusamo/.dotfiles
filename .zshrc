@@ -21,7 +21,7 @@ DISTRO=linux-x64
 export PATH=/usr/local/lib/nodejs/node-$VERSION-$DISTRO/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/bhorng/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="minimal"
 
@@ -72,9 +72,11 @@ source $HOME/.profile
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ### Added by Zplugin's installer
-source '/home/bhorng/.zplugin/bin/zplugin.zsh'
+source $HOME'/.zplugin/bin/zplugin.zsh'
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 zplugin ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh"
 zplugin load trapd00r/LS_COLORS
 ### End of Zplugin's installer chunk
+
+eval $(thefuck --alias)
