@@ -9,6 +9,7 @@ set path+=**
 set wildignore+=**/node_modules/**
 set wildmenu
 
+" Common
 set relativenumber
 set nu
 set expandtab tabstop=4 shiftwidth=4 softtabstop=4 smarttab
