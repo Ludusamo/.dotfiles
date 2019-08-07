@@ -11,8 +11,9 @@ set wildmenu
 
 set relativenumber
 set nu
-set expandtab tabstop=4 shiftwidth=4 softtabstop=4
-set colorcolumn=80
+set expandtab tabstop=4 shiftwidth=4 softtabstop=4 smarttab
+highlight ColorColomn ctermbg=grey
+call matchadd('ColorColumn', '\%81v', 100)
 
 " Line highlight
 augroup CursorLine
@@ -30,6 +31,11 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-n> <c-w>j
 nnoremap <c-e> <c-w>k
 nnoremap <c-i> <c-w>l
+
+nnoremap <c-p> :Files<CR>
+
+nnoremap ; :
+nnoremap : ;
 
 " Colemak
 augroup colemak
@@ -85,9 +91,6 @@ augroup autocommands
     autocmd BufWritePre *.go :GoFmt
 augroup END
 
-"TypeScript
-autocmd BufWritePost *.ts,*.tsx call tslint#run('a', win_getid())
-
 " Leader mappings
 augroup colemak
     let mapleader = " "
@@ -96,7 +99,7 @@ augroup colemak
     nnoremap <leader>zz m`:TrimSpaces<CR>``
     nnoremap <silent> <leader>rr :so %<CR>
     nnoremap <silent> <leader>rt :! ctags -R .<CR>
-    nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+    nnoremap <leader>ev :vsplit $HOME/.vimrc<CR>
     nnoremap <leader>oa :A<CR>
     nnoremap <leader>w :w<CR>
 augroup END
@@ -154,12 +157,14 @@ Plug 'tpope/vim-projectionist' " Project Configuration
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'elmcast/elm-vim'
-
-Plug 'kien/ctrlp.vim' " Fuzzy file finding
+Plug 'posva/vim-vue'
 
 Plug 'segeljakt/vim-silicon' " Cool screenshots
 
 Plug 'phanviet/vim-monokai-pro' " Awesome Colorscheme
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim' " Fuzzy File Finder
 
 call plug#end()
 
@@ -167,6 +172,9 @@ call plug#end()
 set termguicolors
 set t_Co=256
 colorscheme monokai_pro
+
+" Ale
+let g:ale_virtualtext_cursor = 1
 
 " YouCompleteMe
 let g:ycm_semantic_triggers = {
@@ -176,6 +184,7 @@ let g:ycm_semantic_triggers = {
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:SuperTabClosePreviewOnPopupClose = 1
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
