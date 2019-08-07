@@ -4,4 +4,3 @@
 .gitignore.global
 .zshrc
 nvim .config
-sync_dotfiles ../../etc/cron.daily
