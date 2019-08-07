@@ -23,9 +23,9 @@ if [ "$pull_output" = "Already up-to-date." ]; then
 	while read file dir; do
 		filepath=${HOME}/$dir/$file
 		files_changed=1
-		if ! cmp -s "$dotfile_dir/$file" "$filepath"; then
+		if ! (cmp -s "$dotfile_dir/$file" "$filepath" 2> /dev/null); then
 			files_changed=0
-			sudo cp $filepath "$dotfile_dir/$file" 2>&1
+			sudo cp -r $filepath "$dotfile_dir/$file" 2>&1
 			git --git-dir $dotfile_repo --work-tree=$dotfile_dir add "$dotfile_dir/$file" > /dev/null
 		fi
 	done < $dotfile_dir/file_locations
@@ -36,7 +36,7 @@ if [ "$pull_output" = "Already up-to-date." ]; then
 else
 	while read file dir; do
 		filepath=${HOME}/$dir/$file
-		sudo cp $filepath "$dotfile_dir/$file"
+		sudo cp -r $filepath "$dotfile_dir/$file"
 	done < $dotfile_dir/file_locations
 fi
 
