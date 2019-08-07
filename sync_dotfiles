@@ -13,32 +13,42 @@ function on_branch {
 
 cur_branch=$(git --git-dir $dotfile_repo --work-tree=$dotfile_dir rev-parse --abbrev-ref HEAD)
 if ! on_branch master; then
+	echo "Not on master. Stashing Changes..."
 	git --git-dir $dotfile_repo stash > /dev/null
+	echo "Switching to master branch..."
 	git --git-dir $dotfile_repo --work-tree=$dotfile_dir checkout master > /dev/null 2>&1
 fi
+
+echo "Fetching remote changes..."
 git --git-dir $dotfile_repo --work-tree=$dotfile_dir fetch > /dev/null
+echo "Pulling changes..."
 pull_output=$(git --git-dir $dotfile_repo pull)
 
-if [ "$pull_output" = "Already up-to-date." ]; then
+if [ "$pull_output" = "Already up to date." ]; then
+	echo "Up to date with master."
 	while read file dir; do
 		filepath=${HOME}/$dir/$file
+		base=$(basename $file)
 		files_changed=1
-		if ! (cmp -s "$dotfile_dir/$file" "$filepath" 2> /dev/null); then
+		if ! cmp -s "$dotfile_dir/$base" "$filepath" 2> /dev/null; then
 			files_changed=0
-			sudo cp -r $filepath "$dotfile_dir/$file" 2>&1
-			git --git-dir $dotfile_repo --work-tree=$dotfile_dir add "$dotfile_dir/$file" > /dev/null
+			sudo cp -r $filepath "$dotfile_dir/$base" 2>&1
 		fi
+		git --git-dir $dotfile_repo --work-tree=$dotfile_dir add -A > /dev/null
 	done < $dotfile_dir/file_locations
+	echo "Backing up files..."
 	if [ $files_changed ]; then
 		git --git-dir $dotfile_repo --work-tree=$dotfile_dir commit -m "Automated Backup On: `date`" > /dev/null
 		git --git-dir $dotfile_repo --work-tree=$dotfile_dir push origin master > /dev/null 2>&1
 	fi
 else
+	echo "Out of date: Copying updated files..."
 	while read file dir; do
 		filepath=${HOME}/$dir/$file
-		sudo cp -r $filepath "$dotfile_dir/$file"
+		base=$(basename $file)
+		sudo cp -r $filepath "$dotfile_dir/$base"
 	done < $dotfile_dir/file_locations
 fi
 
 git --git-dir $dotfile_repo --work-tree=$dotfile_dir checkout $cur_branch > /dev/null 2>&1
-git --git-dir $dotfile_repo stash pop > /dev/null
+git --git-dir $dotfile_repo stash pop > /dev/null 2>&1
