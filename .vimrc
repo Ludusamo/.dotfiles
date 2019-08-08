@@ -38,6 +38,8 @@ nnoremap <c-p> :Files<CR>
 nnoremap ; :
 nnoremap : ;
 
+nnoremap <Enter> @@
+
 " Colemak
 augroup colemak
     " Normal
@@ -167,6 +169,8 @@ Plug 'phanviet/vim-monokai-pro' " Awesome Colorscheme
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy File Finder
 
+Plug 'jpalardy/vim-slime' " Sending text to other tmux panes
+
 call plug#end()
 
 " Lets vim know it can display 256 colors
@@ -201,3 +205,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Airline
 let g:airline_theme='atomic'
+
+" Slime
+let g:slime_target="tmux"
+let g:slime_paste_file = "$HOME/tmp/.slime_paste"
