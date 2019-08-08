@@ -32,7 +32,7 @@ if [ "$pull_output" = "Already up to date." ]; then
 		files_changed=1
 		if ! cmp -s "$dotfile_dir/$base" "$filepath" 2> /dev/null; then
 			files_changed=0
-			sudo cp -r $filepath "$dotfile_dir/$base" 2>&1
+			cp -r $filepath "$dotfile_dir"
 		fi
 		git --git-dir $dotfile_repo --work-tree=$dotfile_dir add -A > /dev/null
 	done < $dotfile_dir/file_locations
