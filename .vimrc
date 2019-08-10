@@ -171,6 +171,8 @@ Plug 'junegunn/fzf.vim' " Fuzzy File Finder
 
 Plug 'jpalardy/vim-slime' " Sending text to other tmux panes
 
+Plug 'tpope/vim-repeat'
+
 call plug#end()
 
 " Lets vim know it can display 256 colors
@@ -180,6 +182,10 @@ colorscheme monokai_pro
 
 " Ale
 let g:ale_virtualtext_cursor = 1
+
+" Perl
+let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
+let g:ale_linters = { 'perl': ['perl'] }
 
 " YouCompleteMe
 let g:ycm_semantic_triggers = {
