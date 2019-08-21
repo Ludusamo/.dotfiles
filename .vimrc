@@ -9,12 +9,16 @@ set path+=**
 set wildignore+=**/node_modules/**
 set wildmenu
 
+" File Locations
+set backupdir=.backup/,~/.backup/,/tmp//
+set directory=.swp/,~/.swp/,/tmp//
+set undodir=.undo/,~/.undo/,/tmp//
+
 " Common
 set relativenumber
 set nu
 set expandtab tabstop=4 shiftwidth=4 softtabstop=4 smarttab
-highlight ColorColomn ctermbg=grey
-call matchadd('ColorColumn', '\%81v', 100)
+set colorcolumn=80
 
 " Line highlight
 augroup CursorLine
@@ -181,7 +185,11 @@ set t_Co=256
 colorscheme monokai_pro
 
 " Ale
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace']
+\}
 let g:ale_virtualtext_cursor = 1
+let g:ale_fix_on_save = 1
 
 " Perl
 let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
