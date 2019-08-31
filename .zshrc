@@ -15,6 +15,11 @@ t() {
 	fi
 }
 
+# Nodejs
+VERSION=v10.16.0
+DISTRO=linux-x64
+export PATH=/usr/local/lib/nodejs/node-$VERSION-$DISTRO/bin:$PATH
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -43,7 +48,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.zprofile
+source $HOME/.profile
 
 # User configuration
 
@@ -75,9 +80,3 @@ zplugin load trapd00r/LS_COLORS
 ### End of Zplugin's installer chunk
 
 eval $(thefuck --alias)
-
-# FZF Settings
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!.git/*" -g "!.vim/*" -g "!node_modules/*" -g "!.cache/*"'
-export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
