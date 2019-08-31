@@ -4,3 +4,4 @@
 .gitignore.global
 .zshrc
 nvim .config
+.pylintrc
