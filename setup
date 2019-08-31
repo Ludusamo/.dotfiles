@@ -6,7 +6,7 @@ function file_exists {
 
 function copy_dotfile {
 	echo "Copying $1 to $2."
-	cp $1 $2
+	cp -r $1 $2
 }
 
 function handle_diff {
@@ -41,4 +41,3 @@ while read file dir; do
 		copy_dotfile $file $filepath
 	fi
 done < file_locations
-
