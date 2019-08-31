@@ -9,9 +9,15 @@ set path+=**
 set wildignore+=**/node_modules/**
 set wildmenu
 
+" File Locations
+set backupdir=.backup/,~/.backup/,/tmp//
+set directory=.swp/,~/.swp/,/tmp//
+set undodir=.undo/,~/.undo/,/tmp//
+
+" Common
 set relativenumber
 set nu
-set expandtab tabstop=4 shiftwidth=4 softtabstop=4
+set tabstop=4 shiftwidth=4 softtabstop=4 smarttab expandtab
 set colorcolumn=80
 
 " Line highlight
@@ -30,6 +36,13 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-n> <c-w>j
 nnoremap <c-e> <c-w>k
 nnoremap <c-i> <c-w>l
+
+nnoremap <c-p> :Files<CR>
+
+nnoremap ; :
+nnoremap : ;
+
+nnoremap <Enter> @@
 
 " Colemak
 augroup colemak
@@ -85,20 +98,19 @@ augroup autocommands
     autocmd BufWritePre *.go :GoFmt
 augroup END
 
-"TypeScript
-autocmd BufWritePost *.ts,*.tsx call tslint#run('a', win_getid())
-
 " Leader mappings
-augroup colemak
+augroup leader
     let mapleader = " "
     nnoremap <leader>tn :tabnew<CR>
     nnoremap <leader>l :set list!<CR>
     nnoremap <leader>zz m`:TrimSpaces<CR>``
     nnoremap <silent> <leader>rr :so %<CR>
     nnoremap <silent> <leader>rt :! ctags -R .<CR>
-    nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+    nnoremap <leader>ev :vsplit $HOME/.vimrc<CR>
     nnoremap <leader>oa :A<CR>
     nnoremap <leader>w :w<CR>
+    nnoremap <leader>n :cn<CR>
+    nnoremap <leader>p :cp<CR>
 augroup END
 
 " Whitespace
@@ -154,12 +166,18 @@ Plug 'tpope/vim-projectionist' " Project Configuration
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'elmcast/elm-vim'
-
-Plug 'kien/ctrlp.vim' " Fuzzy file finding
+Plug 'posva/vim-vue'
 
 Plug 'segeljakt/vim-silicon' " Cool screenshots
 
 Plug 'phanviet/vim-monokai-pro' " Awesome Colorscheme
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim' " Fuzzy File Finder
+
+Plug 'jpalardy/vim-slime' " Sending text to other tmux panes
+
+Plug 'tpope/vim-repeat'
 
 call plug#end()
 
@@ -167,6 +185,17 @@ call plug#end()
 set termguicolors
 set t_Co=256
 colorscheme monokai_pro
+
+" Ale
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace']
+\}
+let g:ale_virtualtext_cursor = 1
+let g:ale_fix_on_save = 1
+
+" Perl
+let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
+let g:ale_linters = { 'perl': ['perl'] }
 
 " YouCompleteMe
 let g:ycm_semantic_triggers = {
@@ -176,6 +205,7 @@ let g:ycm_semantic_triggers = {
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:SuperTabClosePreviewOnPopupClose = 1
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
@@ -191,3 +221,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Airline
 let g:airline_theme='atomic'
+
+" Slime
+let g:slime_target="tmux"
+let g:slime_paste_file = "$HOME/tmp/.slime_paste"
