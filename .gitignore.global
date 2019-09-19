@@ -10,3 +10,6 @@ obj
 
 # Auto-generated tag files
 tags
+
+# Oneliner files
+.ol
