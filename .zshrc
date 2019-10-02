@@ -15,6 +15,10 @@ t() {
 	fi
 }
 
+ppl() {
+	python3 -c "import sys; print('\n'.join([$1 for line in sys.stdin]))"
+}
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 

@@ -1,56 +1,6 @@
 " Usual Configurations
 set nocompatible
 
-syntax enable
-filetype plugin on
-
-" Fuzzy file searching with :find
-set path+=**
-set wildignore+=**/node_modules/**
-set wildmenu
-
-" File Locations
-set backupdir=.backup/,~/.backup/,/tmp//
-set directory=.swp/,~/.swp/,/tmp//
-set undodir=.undo/,~/.undo/,/tmp//
-
-" Common
-set relativenumber
-set nu
-set tabstop=4 shiftwidth=4 softtabstop=4 smarttab expandtab
-set colorcolumn=80
-
-" Line highlight
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
-
-" Whitespace
-set list!
-set listchars=tab:▸\ ,trail:•
-
-function! ShowSpaces(...)
-    let @/='\v(\s+$)|( +\ze\t)'
-    let oldhlsearch=&hlsearch
-    if !a:0
-        let &hlsearch=!&hlsearch
-    else
-        let &hlsearch=a:1
-    end
-    return oldhlsearch
-endfunction
-
-function! TrimSpaces() range
-    let oldhlsearch=ShowSpaces(1)
-    execute a:firstline.",".a:lastline."substitute ///gec"
-    let &hlsearch=oldhlsearch
-endfunction
-
-command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
-command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
-
 " Vim Plug
 call plug#begin()
 
@@ -142,6 +92,58 @@ let g:airline_theme='atomic'
 let g:slime_target="tmux"
 let g:slime_paste_file = "$HOME/tmp/.slime_paste"
 
+set grepprg=rg\ --hidden\ --glob\ '!.git'\ --vimgrep\ --with-filename
+set grepformat=%f:%l:%c:%m
+syntax enable
+filetype plugin on
+
+" Fuzzy file searching with :find
+set path+=**
+set wildignore+=**/node_modules/**
+set wildmenu
+
+" File Locations
+set backupdir=.backup/,~/.backup/,/tmp//
+set directory=.swp/,~/.swp/,/tmp//
+set undodir=.undo/,~/.undo/,/tmp//
+
+" Common
+set relativenumber
+set nu
+set tabstop=4 shiftwidth=4 softtabstop=4 smarttab expandtab
+set colorcolumn=80
+
+" Line highlight
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
+
+" Whitespace
+set list!
+set listchars=tab:▸\ ,trail:•
+
+function! ShowSpaces(...)
+    let @/='\v(\s+$)|( +\ze\t)'
+    let oldhlsearch=&hlsearch
+    if !a:0
+        let &hlsearch=!&hlsearch
+    else
+        let &hlsearch=a:1
+    end
+    return oldhlsearch
+endfunction
+
+function! TrimSpaces() range
+    let oldhlsearch=ShowSpaces(1)
+    execute a:firstline.",".a:lastline."substitute ///gec"
+    let &hlsearch=oldhlsearch
+endfunction
+
+command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+
 " Key Mappings =======================================================
 
 " Disable
@@ -192,6 +194,18 @@ augroup colemak
     vnoremap l u
     vnoremap u i
     vnoremap j e
+
+    vnoremap <S-n> <S-j>
+    vnoremap <S-i> <S-l>
+    vnoremap <S-e> <S-k>
+    vnoremap <S-k> <S-n>
+    vnoremap <S-l> <S-u>
+    vnoremap <S-u> <S-i>
+    vnoremap <S-j> <S-e>
+
+    vnoremap <c-l> <c-u>
+    vnoremap <c-u> <c-i>
+
 
     " Operator Pending
     onoremap n j
