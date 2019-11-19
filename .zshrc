@@ -16,7 +16,7 @@ t() {
 }
 
 ppl() {
-	python3 -c "import sys; print('\n'.join([$1 for line in sys.stdin]))"
+	python3 -c "import sys; print('\n'.join([$1 for line in map(lambda x: x.strip(), sys.stdin)]))"
 }
 
 # Path to your oh-my-zsh installation.
