@@ -13,3 +13,6 @@ tags
 
 # Oneliner files
 .ol
+
+# Tmux config files
+.tmux
