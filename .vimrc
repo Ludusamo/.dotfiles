@@ -31,6 +31,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'elmcast/elm-vim'
 Plug 'posva/vim-vue'
+Plug 'zah/nim.vim'
 
 Plug 'segeljakt/vim-silicon' " Cool screenshots
 
@@ -44,6 +45,8 @@ Plug 'jpalardy/vim-slime' " Sending text to other tmux panes
 Plug 'tpope/vim-repeat'
 
 Plug 'shime/vim-livedown'
+
+Plug 'dart-lang/dart-vim-plugin'
 
 call plug#end()
 
@@ -222,8 +225,9 @@ set foldmethod=indent
 set foldlevelstart=99
 
 " Special syntax highlighting
-au BufRead,BufNewFile *.screeps.js set syntax=screeps
-autocmd BufNewFile,BufRead *.ino syntax=c
+au BufRead,BufNewFile *.screepsjs set syntax=screeps
+au BufNewFile,BufRead *.ino set filetype=c
+au BufNewFile,BufRead *.h set filetype=c
 augroup autocommands
     autocmd!
     autocmd BufWritePre *.go :GoFmt
