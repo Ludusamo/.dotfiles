@@ -44,7 +44,6 @@ plugins=(
 	yarn
 	pip
 	thefuck
-	vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh

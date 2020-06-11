@@ -32,6 +32,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'elmcast/elm-vim'
 Plug 'posva/vim-vue'
 Plug 'zah/nim.vim'
+Plug 'elixir-editors/vim-elixir'
 
 Plug 'segeljakt/vim-silicon' " Cool screenshots
 
