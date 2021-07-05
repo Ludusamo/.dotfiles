@@ -5,3 +5,4 @@
 .zshrc
 nvim .config
 .pylintrc
+.gitconfig

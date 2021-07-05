@@ -1,0 +1,11 @@
+[user]
+    name = Brendan Horng
+    email = brendan.horng@ludusamo.com
+[alias]
+    hist = log --pretty=format:'%C(auto) %h %ad |%d %s [%an]' --graph --date=short
+    hista = log --pretty=format:'%C(auto) %h %ad |%d %s [%an]' --graph --date=short --all
+    gom = !git fetch -p && git checkout master && git pull
+    cob = checkout -b
+[core]
+    excludesfile = /home/brendan/.dotfiles/.gitignore
+    editor = vim
