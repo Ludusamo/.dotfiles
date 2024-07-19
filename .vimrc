@@ -52,9 +52,9 @@ Plug 'dart-lang/dart-vim-plugin'
 call plug#end()
 
 " Lets vim know it can display 256 colors
-set termguicolors
+" set termguicolors
 set t_Co=256
-colorscheme smyck
+colorscheme slate
 
 " Ale
 let g:ale_fixers = {
@@ -114,8 +114,7 @@ set undodir=.undo/,~/.undo/,/tmp//
 " Common
 set relativenumber
 set nu
-set tabstop=4 shiftwidth=4 softtabstop=4 smarttab expandtab
-set colorcolumn=80
+set tabstop=2 shiftwidth=2 softtabstop=2 smarttab expandtab
 
 " Line highlight
 augroup CursorLine

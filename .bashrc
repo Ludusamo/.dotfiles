@@ -26,7 +26,7 @@ t() {
 			echo Attached Existing Session
 			tmux attach -t "$sessionName"
 		else
-			tmux new -A -s "$sessionName"
+			tmux new -s "$sessionName"
 		fi
 	fi
 }
@@ -144,14 +144,10 @@ xterm*|rxvt*)
     {
         __el_FIRSTPART=""
         __el_SECONDPART=""
-        if [ "$PWD" == "$HOME" ]; then
-            __el_FIRSTPART=$(gettext --domain="pantheon-files" "Home")
+        if [ "$PWD" == "/" ]; then
+            __el_FIRSTPART="/"
         else
-            if [ "$PWD" == "/" ]; then
-                __el_FIRSTPART="/"
-            else
-                __el_FIRSTPART="${PWD##*/}"
-            fi
+            __el_FIRSTPART="${PWD##*/}"
         fi
         if [[ "$__el_LAST_EXECUTED_COMMAND" == "" ]]; then
             echo "$__el_FIRSTPART"
@@ -194,8 +190,7 @@ esac
 
 cat ~/.cache/wal/sequences
 clear
-if [ -t 1 ]; then
-    exec zsh
-fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+source ~/.profile-user
