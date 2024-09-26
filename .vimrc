@@ -54,7 +54,7 @@ call plug#end()
 " Lets vim know it can display 256 colors
 " set termguicolors
 set t_Co=256
-colorscheme slate
+colorscheme smyck
 
 " Ale
 let g:ale_fixers = {
@@ -152,6 +152,8 @@ command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 " Disable
 inoremap hn <esc>
 inoremap <esc> <nop>
+inoremap <C-d> <C-R>=strftime("%Y-%m-%d")<CR>
+inoremap <C-t> <C-R>=strftime("%Y-%m-%dT%H:%M:%S%z")<CR>
 
 " Easier pane movement
 nnoremap <c-h> <c-w>h
@@ -246,6 +248,7 @@ augroup leader
     nnoremap <leader>w :w<CR>
     nnoremap <leader>n :cn<CR>
     nnoremap <leader>p :cp<CR>
+    nnoremap <leader>d "=strftime("%Y-%m-%d")<CR>p
 augroup END
 
 " make fzf match the color scheme
