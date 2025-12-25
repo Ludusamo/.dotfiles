@@ -10,6 +10,8 @@ Plug('junegunn/fzf', { ['do'] =
 })
 Plug('ibhagwan/fzf-lua', { ['branch'] = 'main' })
 Plug('nvim-tree/nvim-web-devicons')
+Plug('tpope/vim-fugitive')
+Plug('github/copilot.vim')
 
 vim.call('plug#end')
 
@@ -44,6 +46,13 @@ vim.o.t_Co=256
 vim.o.relativenumber = true
 vim.o.nu = true
 
+-- Folds
+vim.opt.foldcolumn = "0"
+vim.opt.foldtext = ""
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+
 -- Tabs
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
@@ -70,12 +79,11 @@ vim.keymap.set('n', '<leader>l', ':set list!<CR>')
 vim.keymap.set('n', '<leader>zz', 'm`:TrimSpaces<CR>``')
 vim.keymap.set('n', '<silent>', '<leader>rr :so %<CR>')
 vim.keymap.set('n', '<silent>', '<leader>rt :! ctags -R .<CR>')
-vim.keymap.set('n', '<leader>ev', ':vsplit $HOME/.vimrc<CR>')
+vim.keymap.set('n', '<leader>ev', ':vsplit $HOME/.config/nvim/init.lua<CR>')
 vim.keymap.set('n', '<leader>oa', ':A<CR>')
 vim.keymap.set('n', '<leader>w', ':w<CR>')
 vim.keymap.set('n', '<leader>n', ':cn<CR>')
 vim.keymap.set('n', '<leader>p', ':cp<CR>')
-vim.keymap.set('n', '<leader>d', '"=strftime("%Y-%m-%d")<CR>p')
 
 -- Pane movement
 vim.keymap.set('n', '<c-h>', '<c-w>h')

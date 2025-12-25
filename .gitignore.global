@@ -16,3 +16,4 @@ tags
 
 # Tmux config files
 .tmux
+.idea
