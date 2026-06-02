@@ -39,22 +39,6 @@ vim.g.fzf_colors =
   , ["header"] =   {"fg", "Comment"}
   }
 
-require('fzf-lua').setup({
-  -- Global defaults
-  defaults = {
-    git_icons = true,
-  },
-  -- Providers configuration
-  files = {
-    -- fd is highly recommended and respects .gitignore by default
-    cmd = "fd --type f --hidden --exclude .git",
-  },
-  grep = {
-    -- ripgrep respects .gitignore by default
-    cmd = "rg --vimgrep --hidden --glob '!.git/*'",
-  },
-})
-
 -- Sets terminal color to 256
 vim.o.t_Co=256
 
