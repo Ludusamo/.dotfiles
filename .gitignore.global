@@ -17,3 +17,7 @@ tags
 # Tmux config files
 .tmux
 .idea
+
+todo.md
+
+**/.claude/settings.local.json

@@ -4,3 +4,6 @@
 [user]
 	email = brendan.horng@gmail.com
 	name = Brendan Horng
+[core]
+	editor = vim
+	excludesfile = /home/brendan/.gitignore.global

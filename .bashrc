@@ -194,3 +194,4 @@ clear
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 source ~/.profile-user
+export PATH="$HOME/.local/bin:$PATH"
