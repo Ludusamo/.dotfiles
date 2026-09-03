@@ -1,6 +1,6 @@
 [alias]
-    hist = log --pretty=format:'%C(auto) %h %ad |%d %s [%an]' --graph --date=short
-    hista = log --pretty=format:'%C(auto) %h %ad |%d %s [%an]' --graph --date=short --all
+  hist = log --pretty=format:'%C(auto) %h %ad |%d %s [%an]' --graph --date=short
+  hista = log --pretty=format:'%C(auto) %h %ad |%d %s [%an]' --graph --date=short --all
 [user]
 	email = brendan.horng@gmail.com
 	name = Brendan Horng

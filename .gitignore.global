@@ -19,5 +19,6 @@ tags
 .idea
 
 todo.md
+done.md
 
 **/.claude/settings.local.json
