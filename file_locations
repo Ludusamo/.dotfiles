@@ -6,3 +6,4 @@
 nvim .config
 .pylintrc
 .gitconfig
+AGENTS.md

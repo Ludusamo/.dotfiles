@@ -1,3 +1,5 @@
+vim.g.mapleader = ' '
+
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 Plug('tpope/vim-surround')
@@ -13,6 +15,13 @@ Plug('nvim-tree/nvim-web-devicons')
 Plug('tpope/vim-fugitive')
 Plug('github/copilot.vim')
 Plug('neovim/nvim-lspconfig')
+Plug('saghen/blink.cmp', { ['tag'] = 'v1.*' })
+
+-- DAP
+Plug('mfussenegger/nvim-dap')
+Plug('nvim-neotest/nvim-nio')
+Plug('rcarriga/nvim-dap-ui')
+Plug('theHamsta/nvim-dap-virtual-text')
 
 vim.call('plug#end')
 
@@ -56,6 +65,29 @@ require('fzf-lua').setup({
   },
 })
 
+-- Autocomplete
+require('blink.cmp').setup({
+  keymap = {
+    preset = 'default',
+    ['<Tab>'] = {
+      function(cmp)
+        if cmp.snippet_active() then
+          return cmp.accept()
+        else
+          return cmp.select_and_accept()
+        end
+      end,
+      'snippet_forward',
+      'fallback',
+    },
+    ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+    ['<C-y>'] = { 'fallback' },
+  },
+  sources = {
+    default = { 'lsp' },
+  },
+})
+
 -- LSP: clangd
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
@@ -67,13 +99,77 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<leader>cf', function()
+      vim.lsp.buf.code_action({
+        context = { only = { 'quickfix' } },
+        apply = true,
+      })
+    end, opts)
     vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
   end,
 })
 
+vim.lsp.config('clangd', {
+  capabilities = require('blink.cmp').get_lsp_capabilities(),
+})
 vim.lsp.enable('clangd')
+
+-- DAP: gdb
+local dap = require('dap')
+
+vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'DiagnosticError' })
+vim.fn.sign_define('DapBreakpointCondition', { text = '◆', texthl = 'DiagnosticWarn' })
+vim.fn.sign_define('DapBreakpointRejected', { text = '✗', texthl = 'DiagnosticError' })
+vim.fn.sign_define('DapLogPoint', { text = '◆', texthl = 'DiagnosticInfo' })
+vim.fn.sign_define('DapStopped', { text = '▶', texthl = 'DiagnosticOk', linehl = 'CursorLine' })
+
+dap.adapters.gdb = {
+  type = 'executable',
+  command = 'gdb',
+  args = { '-i=dap', '--quiet' },
+}
+
+dap.configurations.c = {
+  {
+    name = 'Launch',
+    type = 'gdb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/bin/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopAtBeginningOfMainSubprogram = false,
+  },
+}
+
+local dapui = require('dapui')
+dapui.setup()
+
+dap.listeners.after.event_initialized['dapui_config'] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated['dapui_config'] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited['dapui_config'] = function()
+  dapui.close()
+end
+
+require('nvim-dap-virtual-text').setup()
+
+vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint)
+vim.keymap.set('n', '<leader>dc', dap.continue)
+vim.keymap.set('n', '<leader>do', dap.step_over)
+vim.keymap.set('n', '<leader>di', dap.step_into)
+vim.keymap.set('n', '<leader>dO', dap.step_out)
+vim.keymap.set('n', '<leader>dt', dap.terminate)
+vim.keymap.set('n', '<leader>dr', dap.repl.toggle)
+vim.keymap.set('n', '<leader>du', dapui.toggle)
+
+local dap_widgets = require('dap.ui.widgets')
+vim.keymap.set({ 'n', 'v' }, '<leader>dh', dap_widgets.hover)
 
 -- Line numbers
 vim.o.relativenumber = true
@@ -98,8 +194,6 @@ vim.o.backupdir = '.backup/,~/.backup/,/tmp//'
 vim.o.directory = '.swp/,~/.swp/,/tmp//'
 vim.o.undodir = '.undo/,~/.undo/,/tmp//'
 
-vim.g.mapleader = ' '
-
 -- Insert Mode
 vim.keymap.set('i', 'hn', '<esc>')
 vim.keymap.set('i', '<esc>', '<nop>')
@@ -107,9 +201,11 @@ vim.keymap.set('i', '<C-d>', '<C-R>=strftime("%Y-%m-%d")<CR>')
 vim.keymap.set('i', '<C-t>', '<C-R>=strftime("%Y-%m-%dT%H:%M:%S%z")<CR>')
 
 -- Leader commands
+vim.o.listchars = 'trail:●,tab:▸ '
+vim.o.list = true
+vim.keymap.set('n', '<leader>zz', ':%s/\\s\\+$//gc<CR>', { desc = 'Confirm removal of trailing whitespace' })
 vim.keymap.set('n', '<leader>tn', ':tabnew<CR>')
 vim.keymap.set('n', '<leader>l', ':set list!<CR>')
-vim.keymap.set('n', '<leader>zz', 'm`:TrimSpaces<CR>``')
 vim.keymap.set('n', '<silent>', '<leader>rr :so %<CR>')
 vim.keymap.set('n', '<silent>', '<leader>rt :! ctags -R .<CR>')
 vim.keymap.set('n', '<leader>ev', ':vsplit $HOME/.config/nvim/init.lua<CR>')

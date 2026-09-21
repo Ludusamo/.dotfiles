@@ -285,3 +285,5 @@ git-clean-branches() {
 
 	echo "Cleanup complete."
 }
+
+export EDITOR=nvim
