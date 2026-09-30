@@ -226,6 +226,9 @@ vim.keymap.set('n', '<leader>oa', ':A<CR>')
 vim.keymap.set('n', '<leader>w', ':w<CR>')
 vim.keymap.set('n', '<leader>n', ':cn<CR>')
 vim.keymap.set('n', '<leader>p', ':cp<CR>')
+vim.keymap.set('n', '<leader>ps', ':PierSnippet ', { desc = 'Pier snippet prompt' })
+vim.keymap.set('n', '<leader>pa', ':PierSnippetAccept<CR>', { desc = 'Accept Pier snippet preview' })
+vim.keymap.set('n', '<leader>pr', ':PierSnippetReject<CR>', { desc = 'Reject Pier snippet preview' })
 
 -- Pane movement
 vim.keymap.set('n', '<c-h>', '<c-w>h')
