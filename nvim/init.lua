@@ -145,6 +145,13 @@ dap.configurations.c = {
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/bin/', 'file')
     end,
+    args = function()
+      local input = vim.fn.input('Args: ')
+      if input == '' then
+        return {}
+      end
+      return vim.split(input, ' ')
+    end,
     cwd = '${workspaceFolder}',
     stopAtBeginningOfMainSubprogram = false,
   },
