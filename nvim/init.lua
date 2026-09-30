@@ -3,6 +3,7 @@ vim.g.mapleader = ' '
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 Plug('tpope/vim-surround')
+Plug('Ludusamo/pier.nvim')
 
 -- FZF
 Plug('junegunn/fzf', { ['do'] =
@@ -64,6 +65,11 @@ require('fzf-lua').setup({
     cmd = "rg --vimgrep --hidden --glob '!.git/*'",
   },
 })
+
+local pier_ok, pier = pcall(require, 'pier')
+if pier_ok then
+  pier.setup()
+end
 
 -- Autocomplete
 require('blink.cmp').setup({
