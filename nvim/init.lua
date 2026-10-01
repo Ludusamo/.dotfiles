@@ -94,7 +94,7 @@ require('blink.cmp').setup({
   },
 })
 
--- LSP: clangd
+-- LSP
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local opts = { buffer = args.buf }
@@ -117,10 +117,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+local lsp_capabilities = require('blink.cmp').get_lsp_capabilities()
+
 vim.lsp.config('clangd', {
-  capabilities = require('blink.cmp').get_lsp_capabilities(),
+  capabilities = lsp_capabilities,
 })
-vim.lsp.enable('clangd')
+
+vim.lsp.config('ts_ls', {
+  capabilities = lsp_capabilities,
+})
+
+vim.lsp.enable({ 'clangd', 'ts_ls' })
 
 -- DAP: gdb
 local dap = require('dap')
